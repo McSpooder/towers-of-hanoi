@@ -54,13 +54,15 @@ def move_disc(tower_source, tower_dest):
     index = find_open_slot(tower_dest)
     towers[tower_dest][index] = disc
 
-def move_tower(N, source, destination, workspace):
+def move_tower(N, source, destination, workspace, show=False):
     if (N == 1):
         move_disc(source,destination)
+        display_towers()
     else:
-        move_tower(N-1, source, workspace, destination)
+        move_tower(N-1, source, workspace, destination, show)
         move_disc(source, destination)
-        move_tower(N-1, workspace, destination, source)
+        display_towers()
+        move_tower(N-1, workspace, destination, source, show)
 
 def play():
     while(True):
@@ -75,8 +77,12 @@ def __main__():
         play()
     else:
         display_towers()
-        inp = input("Press enter to solve.")
-        move_tower(4, 0, 1, 2)
+        resp = input("Would you like to see the steps?")
+        if (resp ==1 "1"):
+            move_tower(4, 0, 1, 2, show = True)
+        else:
+            move_tower(4,0,1,2, show = False)
+
         display_towers()
 
 
