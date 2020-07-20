@@ -1,6 +1,6 @@
 #The following script demonstrates the concepts of recursion.
 
-towers = [[6,4,2,1], [0,0,0,0], [6,4,2,1]]
+towers = [[6,4,2,1], [0,0,0,0], [0,0,0,0]]
 
 
 def display_towers():
@@ -54,11 +54,31 @@ def move_disc(tower_source, tower_dest):
     index = find_open_slot(tower_dest)
     towers[tower_dest][index] = disc
 
-def __main__():
+def move_tower(N, source, destination, workspace):
+    if (N == 1):
+        move_disc(source,destination)
+    else:
+        move_tower(N-1, source, workspace, destination)
+        move_disc(source, destination)
+        move_tower(N-1, workspace, destination, source)
+
+def play():
     while(True):
         display_towers()
         str_in = input("Where would you like to move the disc? e.g. [0,1]: ")
         move_disc(int(str_in[1]), int(str_in[3]))
         display_towers
+
+def __main__():
+    choice = input("Would you like to play or let the computer do it?: ")
+    if (choice == 0):
+        play()
+    else:
+        display_towers()
+        inp = input("Press enter to solve.")
+        move_tower(4, 0, 1, 2)
+        display_towers()
+
+
 
 __main__()
